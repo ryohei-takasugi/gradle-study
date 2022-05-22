@@ -1,10 +1,10 @@
 FROM openjdk:11-oraclelinux8
-# set arg
+# set version number
 ARG gradleVersion="7.0"
-# command run directory
+# Set the directory to execute the command
 RUN mkdir /opt/gradle
 WORKDIR /opt/gradle
-# install common lib
+# install common library
 RUN microdnf update && microdnf upgrade && microdnf install wget vim unzip zip
 # install gradle
 RUN curl -sSOL "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
