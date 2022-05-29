@@ -6,14 +6,25 @@ package javaSample
 import spock.lang.Specification
 
 class AppTest extends Specification {
-    def "application has a greeting"() {
-        setup:
+    def "Appクラス.greetingメソッドの実行結果に対する試験を行います"() {
+        setup: "Appクラスを生成し、"
         def app = new App()
 
-        when:
+        when: "greetingメソッドを実行したとき、"
         def result = app.greeting
 
-        then:
+        then: "Nullではなく、「Hello World!」という文字列が取得できること"
         result != null
+        result == "Hello World!"
+    }
+    def "Appクラス.greetingメソッドの実行結果の型試験を行います"() {
+        setup: "Appクラスを生成し、"
+        def app = new App()
+
+        when: "greetingメソッドを実行したとき、"
+        def result = app.greeting
+
+        then: "文字列型であること"
+        result instanceof String
     }
 }
