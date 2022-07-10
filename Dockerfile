@@ -1,18 +1,54 @@
 FROM openjdk:11-oraclelinux8
+
 # set version number
-ARG gradleVersion="7.0"
+ARG gradleVersion="6.8.2"
+ARG maven3Version="3.8.6"
+ARG projectFolder="/root/projects"
+
 # set the directory to execute the command
 RUN mkdir /opt/gradle
 WORKDIR /opt/gradle
+
 # install common library
-RUN microdnf update && microdnf upgrade && microdnf install yum vim unzip zip
-RUN yum update && yum upgrade && yum install -y /usr/bin/xargs
+RUN microdnf update && microdnf upgrade \
+    && microdnf install yum
+RUN yum update && yum upgrade \
+    && yum install -y /usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm
+
 # install gradle
 RUN curl -sSOL "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
 RUN unzip -d /opt/gradle gradle-${gradleVersion}-bin.zip
-ENV PATH /opt/gradle/gradle-${gradleVersion}/bin:$PATH
-RUN touch /root/.bashrc
+ENV GRADLE_USER_HOME /opt/gradle/gradle-${gradleVersion}
+ENV PATH $GRADLE_USER_HOME/bin:$PATH
 RUN gradle -v
+
+# install Maven
+RUN mkdir -p /opt/maven /opt/maven/ref
+WORKDIR /opt/maven
+RUN curl -sSOL "https://apache.osuosl.org/maven/maven-3/${maven3Version}/binaries/apache-maven-${maven3Version}-bin.tar.gz"
+RUN tar -zxvf apache-maven-${maven3Version}-bin.tar.gz
+RUN rm apache-maven-${maven3Version}-bin.tar.gz
+ENV MAVEN_HOME /opt/maven/apache-maven-${maven3Version}
+ENV PATH $MAVEN_HOME/bin:$PATH
+RUN mvn -version
+
+# install git-secrets
+WORKDIR /opt/
+RUN git clone https://github.com/awslabs/git-secrets
+WORKDIR /opt/git-secrets
+RUN make install
+RUN git-secrets --scan-history
+
+# change dir
+RUN mkdir ${projectFolder}
+WORKDIR ${projectFolder}
+
+# set m2repo
+ENV M2_HOME ${projectFolder}
+
+# set time zone
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtim
+
 # set bash
 RUN echo "PS1='[\[\033[01;32m\]\u@Gradle\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \@]\$ '" >> /root/.bashrc
 RUN echo "alias ls='ls --color=auto'" >> /root/.bashrc
@@ -21,6 +57,7 @@ RUN echo "alias lt='ls -tl --color=auto'" >> /root/.bashrc
 RUN echo "alias diff='diff --color=auto'" >> /root/.bashrc
 RUN echo "alias ip='ip -color=auto'" >> /root/.bashrc
 RUN echo "alias grdl='./gradlew \$@'" >>  /root/.bashrc
+
 # set vim
 RUN echo '" ---- my config ----' >> /etc/vimrc
 RUN echo '" set basic' >> /etc/vimrc

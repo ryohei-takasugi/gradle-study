@@ -1,1 +1,6 @@
 .DS_Store
+nexus-data/blobs/*
+nexus-data/cache/*
+nexus-data/db/*
+nexus-data/log/*
+nexus-data/tmp/*

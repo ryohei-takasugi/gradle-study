@@ -12,3 +12,11 @@ services:
       - type: bind
         source: "./"
         target: "/root/projects"
+  nexus:
+    image: sonatype/nexus3
+    ports:
+      - 38081:8081
+    volumes:
+      - type: bind
+        source: "./nexus-data"
+        target: /nexus-data

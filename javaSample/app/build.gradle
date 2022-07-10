@@ -17,6 +17,14 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven {
+        url 'http://nexus-net/repo'
+        credentials {
+            username mavenUsername
+            password mavenPassword
+        }
+    }
+    mavenLocal()
 }
 
 dependencies {

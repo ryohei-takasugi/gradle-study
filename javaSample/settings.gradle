@@ -8,4 +8,6 @@
  */
 
 rootProject.name = 'javaSample'
+mavenUsername = 'user'
+mavenPassword = 'pass'
 include('app')
