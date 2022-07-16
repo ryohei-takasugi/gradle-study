@@ -8,6 +8,6 @@
  */
 
 rootProject.name = 'javaSample'
-mavenUsername = 'user'
-mavenPassword = 'pass'
+mavenUsername = 'admin'
+mavenPassword = 'nexus'
 include('app')

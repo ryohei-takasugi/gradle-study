@@ -606,4 +606,31 @@ sun.java.launcher=SUN_STANDARD
 <dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/AbstractFuture' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common/util/concurrent/ForwardingFluentFuture' stamp='100.159'/>
 <dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/AbstractFuture' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common/util/concurrent/ForwardingFluentFuture' stamp='100.159'/>
 <dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/AbstractFuture' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common/util/concurrent/ForwardingFluentFuture' stamp='100.159'/>
-<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/internal/InternalFutureFailureAccess' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/internal/InternalFutureFailureAccess' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common/util/concurrent/ForwardingFluentFuture' stamp='100.161'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='com/google/common/util/concurrent/internal/InternalFutureFailureAccess' x='com/google/common/util/concurrent/SettableFuture' witness='com/google/common/util/concurrent/ForwardingFluentFuture' stamp='100.161'/>
+<writer thread='281471296004576'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/codehaus/groovy/runtime/callsite/CallSite' x='org/codehaus/groovy/runtime/callsite/AbstractCallSite callGroovyObjectGetProperty (Ljava/lang/Object;)Ljava/lang/Object;' witness='org/codehaus/groovy/runtime/callsite/GetEffectivePogoFieldSite' stamp='100.179'/>
+<writer thread='281470090150368'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/stream/ForEachOps$ForEachOp' x='java/util/stream/ForEachOps$ForEachOp$OfRef' witness='java/util/stream/ForEachOps$ForEachOp$OfInt' stamp='100.223'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/stream/ForEachOps$ForEachOp' x='java/util/stream/ForEachOps$ForEachOp$OfRef' witness='java/util/stream/ForEachOps$ForEachOp$OfInt' stamp='100.223'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/stream/ForEachOps$ForEachOp' x='java/util/stream/ForEachOps$ForEachOp$OfRef' witness='java/util/stream/ForEachOps$ForEachOp$OfInt' stamp='100.223'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/stream/ForEachOps$ForEachOp' x='java/util/stream/ForEachOps$ForEachOp$OfRef' witness='java/util/stream/ForEachOps$ForEachOp$OfInt' stamp='100.223'/>
+<writer thread='281470052045280'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.742'/>
+<writer thread='281472512377312'/>
+<dependency_failed type='leaf_type' ctxk='javax/ws/rs/core/MediaType' witness='org/jboss/resteasy/util/WeightedMediaType' stamp='1465.747'/>
+<writer thread='281470052045280'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/ws/rs/Produces' x='com/sun/proxy/$Proxy70 value ()[Ljava/lang/String;' witness='javax/ws/rs/Produces' stamp='1465.779'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/ws/rs/Produces' x='com/sun/proxy/$Proxy70 value ()[Ljava/lang/String;' witness='javax/ws/rs/Produces' stamp='1465.779'/>
+<writer thread='281470056239584'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/concurrent/FutureTask' x='java/util/concurrent/FutureTask done ()V' witness='com/softwarementors/extjs/djn/ParallelTask$BoundedFuture' stamp='1839.462'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/concurrent/FutureTask' x='java/util/concurrent/FutureTask done ()V' witness='com/softwarementors/extjs/djn/ParallelTask$BoundedFuture' stamp='1839.462'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/concurrent/FutureTask' x='java/util/
