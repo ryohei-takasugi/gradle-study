@@ -1,8 +1,11 @@
 FROM openjdk:11-oraclelinux8
 
+# this Dockerfile is mac os only
+
 # set version number
 ARG gradleVersion="6.8.2"
 ARG maven3Version="3.8.6"
+ARG nexusVersion="3.40.1-01"
 ARG projectFolder="/root/projects"
 
 # set the directory to execute the command
@@ -13,7 +16,7 @@ WORKDIR /opt/gradle
 RUN microdnf update && microdnf upgrade \
     && microdnf install yum
 RUN yum update && yum upgrade \
-    && yum install -y /usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm
+    && yum install -y /usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm java-1.8.0-openjdk
 
 # install gradle
 RUN curl -sSOL "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
@@ -46,6 +49,16 @@ WORKDIR ${projectFolder}
 # set m2repo
 ENV M2_HOME ${projectFolder}
 
+# install sonatype nexus
+RUN mkdir -p /opt/nexus
+WORKDIR /opt/nexus
+RUN curl -sSOL "https://download.sonatype.com/nexus/3/nexus-${nexusVersion}-mac.tgz"
+RUN tar -zxvf nexus-${nexusVersion}-mac.tgz
+RUN rm nexus-${nexusVersion}-mac.tgz
+ENV NEXUS_HOME /opt/nexus/nexus-${nexusVersion}
+ENV PATH $NEXUS_HOME/bin:$PATH
+RUN sed 'i2 JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-2.el8_6.aarch64/jre/bin/java' /opt/nexus/nexus-${nexusVersion}/bin/nexus
+
 # set time zone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtim
 
@@ -59,8 +72,8 @@ RUN echo "alias ip='ip -color=auto'" >> /root/.bashrc
 RUN echo "alias grdl='./gradlew \$@'" >>  /root/.bashrc
 
 # set vim
-RUN echo '" ---- my config ----' >> /etc/vimrc
-RUN echo '" set basic' >> /etc/vimrc
+RUN echo " ---- my config ----" >> /etc/vimrc
+RUN echo "set basic" >> /etc/vimrc
 RUN echo "set encoding=utf-8" >> /etc/vimrc
 RUN echo "set nobackup" >> /etc/vimrc
 RUN echo "set number" >> /etc/vimrc
@@ -68,14 +81,16 @@ RUN echo "set title" >> /etc/vimrc
 RUN echo "set showcmd" >> /etc/vimrc
 RUN echo "set laststatus=2" >> /etc/vimrc
 RUN echo "set ruler" >> /etc/vimrc
-RUN echo '" set syntax' >> /etc/vimrc
+RUN echo "set syntax" >> /etc/vimrc
 RUN echo "syntax on" >> /etc/vimrc
 RUN echo "set showmatch" >> /etc/vimrc
-RUN echo '" set search' >> /etc/vimrc
+RUN echo "set search" >> /etc/vimrc
 RUN echo "set hlsearch" >> /etc/vimrc
 RUN echo "set smartcase" >> /etc/vimrc
 RUN echo "set ignorecase" >> /etc/vimrc
 RUN echo "set incsearch" >> /etc/vimrc
-RUN echo '" set tab' >> /etc/vimrc
+RUN echo "set tab" >> /etc/vimrc
 RUN echo "set noautoindent" >> /etc/vimrc
 RUN echo "set expandtab" >> /etc/vimrc
+
+CMD ["nexus", "run"]
