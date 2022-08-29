@@ -8,12 +8,12 @@ services:
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
-    ports:
-      - 38081:8081
+    # ports:
+    #   - 8433:433
     volumes:
       - type: bind
         source: "./projects"
         target: "/root/projects"
-      - type: bind
-        source: "./sonatype-work"
-        target: "/opt/nexus/sonatype-work"
+      # - type: bind
+      #   source: "./nexus"
+      #   target: "/opt/nexus"

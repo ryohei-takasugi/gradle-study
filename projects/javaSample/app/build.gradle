@@ -14,18 +14,24 @@ plugins {
     id 'application'
 }
 
-repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
-    maven {
-        url 'http://nexus-net/repo'
-        credentials {
-            username mavenUsername
-            password mavenPassword
-        }
-    }
-    mavenLocal()
-}
+// apply from: 'maven.gradle'
+
+// repositories {
+//     // Use Maven Central for resolving dependencies.
+//     mavenCentral()
+//     maven {
+//         url 'https://localhost:8081/app'
+//         credentials {
+//             username 'admin'
+//             password 'nexus'
+//         }
+//     }
+//     mavenLocal()
+// }
+
+group project.group
+version project.version
+
 
 dependencies {
     // Use the latest Groovy version for Spock testing
@@ -54,4 +60,3 @@ tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
 }
-

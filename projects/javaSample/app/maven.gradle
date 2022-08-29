@@ -1,0 +1,54 @@
+apply plugin: 'maven-publish'
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
+  repositories {
+    maven {
+      def releasesRepoUrl  = "http://localhost:8081/release"
+      def snapshotsRepoUrl = "http://localhost:8081/snapshot"
+      url = project.version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+      println "url     = ${url}"
+      println "group   = ${project.group}"
+      println "version = ${project.version}"
+      println "User    = ${project.properties.mavenUser}"
+      println "Pass    = ${project.properties.mavenPassword}"
+      credentials {
+        username project.properties.mavenUser
+        password project.properties.mavenPassword
+      }
+    }
+  }
+}
+
+// -- Java KeyStoreファイル・鍵ペアの作成
+// keytool -genkeypair -keystore /opt/nexus/nexus-3.40.1-01/etc/ssl/keystore.jks -alias nexus -keyalg RSA -sigalg SHA256withRSA -validity 365
+// Enter keystore password:  
+// Keystore password is too short - must be at least 6 characters
+// Enter keystore password:  sonatype
+// Re-enter new password: sonatype
+// What is your first and last name?
+//   [Unknown]:  localhost
+// What is the name of your organizational unit?
+//   [Unknown]:  private
+// What is the name of your organization?
+//   [Unknown]:  ryohei
+// What is the name of your City or Locality?
+//   [Unknown]:  tokyo
+// What is the name of your State or Province?
+//   [Unknown]:  shibuya
+// What is the two-letter country code for this unit?
+//   [Unknown]:  JP
+// Is CN=localhost, OU=private, O=ryohei, L=tokyo, ST=shibuya, C=JP correct?
+//   [no]:  yes
+// 
+// -- 署名リクエスト(csr)の作成
+// [root@Gradle:~/projects/javaSample 05:41 AM]$ keytool -certreq -alias nexus -keystore /opt/nexus/nexus-3.40.1-01/etc/ssl/keystore.jks -file /opt/nexus/nexus-3.40.1-01/etc/ssl/nexus.csr
+// Enter keystore password:  sonatype
+// 
+// -- 証明書(pem形式)の作成
+// [root@Gradle:~/projects/javaSample 05:43 AM]$ keytool -gencert -rfc -alias nexus -keystore /opt/nexus/nexus-3.40.1-01/etc/ssl/keystore.jks -infile /opt/nexus/nexus-3.40.1-01/etc/ssl/nexus.csr -outfile /opt/nexus/nexus-3.40.1-01/etc/ssl/nexus.pem
+// Enter keystore password: sonatype
