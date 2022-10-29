@@ -5,8 +5,8 @@ FROM openjdk:11-oraclelinux8
 # set version number
 ARG gradleVersion="6.8.2"
 ARG maven3Version="3.8.6"
-# ARG nexusVersion="3.40.1-01"
 ARG projectFolder="/root/projects"
+ARG nexusVersion="3.40.1-01"
 
 # set the directory to execute the command
 RUN mkdir /opt/gradle
@@ -15,7 +15,7 @@ WORKDIR /opt/gradle
 # install common library
 RUN microdnf update && microdnf upgrade \
     && microdnf install yum
-RUN yum update && yum upgrade \
+RUN yum update -y && yum upgrade -y \
     && yum install -y /usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm java-1.8.0-openjdk
 
 # install gradle
@@ -49,19 +49,8 @@ WORKDIR ${projectFolder}
 # set m2repo
 ENV M2_HOME ${projectFolder}
 
-## 1. Run only the first time.
-## 2. Execute without setting the bind volume.
-## 3. Copy the "/opt/nexus" folder to the host.
-## 4. Set the bind volume and mount the nexus folder on the host.
-## install sonatype nexus
-#RUN mkdir -p /opt/nexus
-#WORKDIR /opt/nexus
-#RUN curl -sSOL "https://download.sonatype.com/nexus/3/nexus-${nexusVersion}-mac.tgz"
-#RUN tar -zxvf nexus-${nexusVersion}-mac.tgz
-#RUN rm nexus-${nexusVersion}-mac.tgz
-# ENV NEXUS_HOME /opt/nexus/nexus-${nexusVersion}
-# ENV PATH $NEXUS_HOME/bin:$PATH
-#RUN sed 'i2 JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-2.el8_6.aarch64/jre/bin/java' /opt/nexus/nexus-${nexusVersion}/bin/nexus
+# set nexus version (After docker starts, run install_nexus.sh)
+RUN echo "export NEXUS_VERSION='${nexusVersion}'" >> /root/.bashrc
 
 # set time zone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtim

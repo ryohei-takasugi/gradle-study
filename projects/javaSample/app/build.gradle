@@ -12,26 +12,29 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+
+    // shadowJar
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
-// apply from: 'maven.gradle'
+apply from: 'maven.gradle'
 
-// repositories {
-//     // Use Maven Central for resolving dependencies.
-//     mavenCentral()
-//     maven {
-//         url 'https://localhost:8081/app'
-//         credentials {
-//             username 'admin'
-//             password 'nexus'
-//         }
-//     }
-//     mavenLocal()
-// }
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    maven {
+        allowInsecureProtocol = true
+        url 'http://localhost:8081/repository/maven-public/'
+        credentials {
+            username 'admin'
+            password 'admin'
+        }
+    }
+    mavenLocal()
+}
 
 group project.group
 version project.version
-
 
 dependencies {
     // Use the latest Groovy version for Spock testing
@@ -51,12 +54,26 @@ dependencies {
     testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
 }
 
+java {
+	// Java version compatibility used when compiling Java sources
+	sourceCompatibility = JavaVersion.VERSION_11
+	// Java version to generate classes
+	targetCompatibility = JavaVersion.VERSION_11
+}
+
 application {
     // Define the main class for the application.
-    mainClass = 'javaSample.App'
+    mainClass = 'jp.example.javasample.App'
 }
 
 tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
+}
+
+shadowJar {
+    classifier = 'fat'
+    manifest {
+        attributes 'Main-Class': 'jp.example.app.javasample'
+    }
 }

@@ -8,8 +8,9 @@ publishing {
   }
   repositories {
     maven {
-      def releasesRepoUrl  = "http://localhost:8081/release"
-      def snapshotsRepoUrl = "http://localhost:8081/snapshot"
+      allowInsecureProtocol = true
+      def releasesRepoUrl  = "http://localhost:8081/repository/maven-releases/"
+      def snapshotsRepoUrl = "http://localhost:8081/repository/maven-snapshots/"
       url = project.version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
       println "url     = ${url}"
       println "group   = ${project.group}"
