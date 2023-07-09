@@ -4,9 +4,13 @@ FROM openjdk:11-oraclelinux8
 
 # set version number
 ARG gradleVersion="6.8.2"
-ARG maven3Version="3.8.6"
+ARG maven3Version="3.8.8"
+
+# set folder
 ARG projectFolder="/root/projects"
-ARG nexusVersion="3.40.1-01"
+
+# set apt install packege
+ARG packegeList="/usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm java-1.8.0-openjdk"
 
 # set the directory to execute the command
 RUN mkdir /opt/gradle
@@ -16,7 +20,7 @@ WORKDIR /opt/gradle
 RUN microdnf update && microdnf upgrade \
     && microdnf install yum
 RUN yum update -y && yum upgrade -y \
-    && yum install -y /usr/bin/xargs curl wget vim unzip zip git net-tools lsof procps make npm java-1.8.0-openjdk
+    && yum install -y ${packegeList}
 
 # install gradle
 RUN curl -sSOL "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
@@ -48,9 +52,6 @@ WORKDIR ${projectFolder}
 
 # set m2repo
 ENV M2_HOME ${projectFolder}
-
-# set nexus version (After docker starts, run install_nexus.sh)
-RUN echo "export NEXUS_VERSION='${nexusVersion}'" >> /root/.bashrc
 
 # set time zone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtim
@@ -84,4 +85,3 @@ RUN echo "set incsearch" >> /etc/vimrc
 RUN echo "set noautoindent" >> /etc/vimrc
 RUN echo "set expandtab" >> /etc/vimrc
 
-# CMD ["nexus", "run"]
