@@ -5,11 +5,32 @@ services:
     container_name: gradle
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_gradle
     tty: true
     stdin_open: true
     volumes:
       - type: bind
         source: "./projects"
         target: "/root/projects"
+    networks:
+      - nexus
+  nexus-server:
+    container_name: nexus
+    build:
+      context: .
+      dockerfile: Dockerfile_nexus
+      platforms:
+        - linux/arm64
+    volumes:
+      - nexus-data:/nexus-data
+    ports:
+      - 127.0.0.1:8081:8081
+    networks:
+      - nexus
 
+networks:
+  nexus:
+    driver: bridge
+
+volumes:
+  nexus-data:
